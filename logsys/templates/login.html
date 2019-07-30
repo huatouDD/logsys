@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}
+
+    logging-sys
+
+{% endblock %}
+
+{% block head %}
+    <style type="text/css"></style>>
+{% endblock %}
+
+{% block content %}
+
+    <form action="{{ url_for("login") }}" method="post">
+
+        {{ login_form.csrf_token }}
+
+        {% if login_form.errors %}
+
+            <ul>
+                {% for name, errors in login_form.errors.items() %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+
+        {% endif %}
+
+        <div class="card card-hidden">
+            <div class="header text-center">用户登录</div>
+
+            <div class="content">
+                <div class="form-group">
+
+                    {{ login_form.username(placeholder="账号/邮箱", class_="form-control") }}
+
+                    {% for e in login_form.username.errors %}
+                        <span style="color: red">*{{ e }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+
+                    {{ login_form.password(placeholder="密码", class_="form-control", autocomplete="off") }}
+
+                    {% for e in login_form.password.errors %}
+                        <span style="color: red">*{{ e }}</span>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div class="footer text-center">
+                                <a href="/login">
+                <button type="submit" class="btn btn-fill btn-warning btn-wd"
+                        style="border-radius:4px; padding-top:2px; padding-bottom:2px;">登录
+                </button>
+                                </a>
+            </div>
+        </div>
+
+
+    </form>
+
+
+{% endblock %}
