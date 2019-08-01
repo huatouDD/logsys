@@ -9,9 +9,12 @@
     <style type="text/css"></style>>
 {% endblock %}
 
+{% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='public/login.js') }}"></script>
+{% endblock %}
 {% block content %}
 
-    <form action="{{ url_for("login") }}" method="post">
+    <form action="/" method="post">
 
         {{ login_form.csrf_token }}
 
@@ -32,15 +35,21 @@
 
             <div class="content">
                 <div class="form-group">
+                    <!--为空提醒-->
+                    <div class="label-input100 login-hint">
+                        <span id="user_error" class="login-color-red"></span>
+                    </div>
+                    {{ login_form.email(placeholder="账号/邮箱", class_="form-control") }}
 
-                    {{ login_form.username(placeholder="账号/邮箱", class_="form-control") }}
-
-                    {% for e in login_form.username.errors %}
+                    {% for e in login_form.email.errors %}
                         <span style="color: red">*{{ e }}</span>
                     {% endfor %}
                 </div>
                 <div class="form-group">
-
+                    <!--为空提醒-->
+                    <div class="label-input100 login-hint">
+                        <span id="password_error" class="login-color-red"></span>
+                    </div>
                     {{ login_form.password(placeholder="密码", class_="form-control", autocomplete="off") }}
 
                     {% for e in login_form.password.errors %}
@@ -50,11 +59,11 @@
 
             </div>
             <div class="footer text-center">
-                                <a href="/login">
-                <button type="submit" class="btn btn-fill btn-warning btn-wd"
+                {#                                <a href="/login">#}
+                <button type="button" class="btn btn-fill btn-warning btn-wd" id="sub"
                         style="border-radius:4px; padding-top:2px; padding-bottom:2px;">登录
                 </button>
-                                </a>
+                {#                                </a>#}
             </div>
         </div>
 

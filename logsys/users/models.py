@@ -36,7 +36,7 @@ class User(db.Document, UserMixin):
         'collection': 'user'
     }
     email = db.StringField(max_length=255)
-    password_hash = db.StringField(max_length=255)
+    password = db.StringField(max_length=255)
     active = db.BooleanField(default=True)
     confirmed_at = db.DateTimeField()
     roles = db.ListField(db.ReferenceField(Role), default=[])
@@ -47,7 +47,7 @@ class User(db.Document, UserMixin):
         :param password:
         :return:
         """
-        self.password_hash = generate_password_hash(password)
+        self.password = generate_password_hash(password)
 
     def check_password(self, password):
         """
@@ -55,7 +55,7 @@ class User(db.Document, UserMixin):
         :param password:
         :return:
         """
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password, password)
 
     def create(self, **kwargs):
         """

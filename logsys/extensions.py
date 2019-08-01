@@ -13,3 +13,5 @@ db = MongoEngine()
 logcfg = LogConfig()  # LOG
 csrf_protect = CsrfProtect()  # csrf保护
 login_manager.session_protection = None
+
+login_manager.login_view = "/login/"

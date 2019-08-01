@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <script src="{{ url_for('static', filename='jquery1.42.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery.js') }}"></script>
     {% block head %}{% endblock %}
 </head>
 <body>
 {% block content %}{% endblock %}
+{% block js %}
+{% endblock %}
 </body>
 </html>

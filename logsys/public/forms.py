@@ -27,7 +27,7 @@ class LoginForm(FlaskForm):
 
         logging.info('登录信息校验')
 
-        self.user = User.get_by(email=self.email.data)
+        self.user = User.objects(email=self.email.data).first()
         # 判断用户是否存在
         if self.user:
             if not self.user.check_password(self.password.data):
@@ -47,6 +47,6 @@ class LoginForm(FlaskForm):
 
         session['auth_token'] = self.user.get_auth_token()
         session['auth_token_time'] = int(round(time.time()))
-        session['email'] = self.user.email.data
+        # session['email'] = self.user.email.data
 
         return initial_validation

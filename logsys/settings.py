@@ -8,6 +8,11 @@ class Config:
     SECRET_KEY = os.urandom(24)
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+    # SECURITY_LOGIN_URL = '/login/'  # 登录端口/
+    SECURITY_POST_LOGIN_VIEW = '/'  # 指定用户登录后默认跳转的页面
+    # flask-security消息文本
+    SECURITY_MSG_USER_DOES_NOT_EXIST = ['用户名错误', '']  # 登陆时用户名错误提醒
+    SECURITY_MSG_INVALID_PASSWORD = ['密码错误', '']  # 登陆时密码错误提醒
     # 创建redis数据库的连接，并把session存入redis中
     # REDIS_HOST = '127.0.0.1'
     # REDIS_PORT = 6379
