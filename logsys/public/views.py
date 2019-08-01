@@ -5,6 +5,7 @@ from flask_security import logout_user
 from logsys import response
 from logsys.extensions import csrf_protect
 from logsys.public.forms import LoginForm, RegisterForm
+from logsys.users.models import User
 
 blueprint = Blueprint('public', __name__, static_folder='../static')
 
@@ -80,7 +81,10 @@ def register_user():
     try:
 
         form = RegisterForm()
-        if form.validate():
+        params = request.get_json()
+        if form.validate_on_submit():
+            # 创建新用户
+            User.create(email=params.get('email'), password=params.get('password'))
             resp_data["code"] = response.SUCCESS
             resp_data["msg"] = response.RESULT_SUCCESS
             resp_data["data"] = []

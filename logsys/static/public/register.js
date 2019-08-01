@@ -2,6 +2,7 @@ $(function () {
     var email = '';
     var password = '';
     var re_password = '';
+    var csrf_token = '';
     var is_error = false;  //判断参数是否为空
 
     function isEmpty(obj) {
@@ -18,23 +19,27 @@ $(function () {
         email = $('#email').val();
         password = $('#password').val();
         re_password = $('#re_password').val();
+        csrf_token = $('#csrf_token').attr('value');
         is_error = false;
 
         if (isEmpty(email)) {
             is_error = true;
-            swal({text: '请输入用户名', type: 'error', width: "320px"});
+            alert("请输入用户名");
+            // swal({text: '请输入用户名', type: 'error', width: "320px"});
             return false;
         }
 
         if (isEmpty(password)) {
             is_error = true;
-            swal({text: '请输入密码', type: 'error', width: "320px"});
+            alert("请输入密码");
+            // swal({text: '请输入密码', type: 'error', width: "320px"});
             return false;
         }
 
         if (isEmpty(re_password)) {
             is_error = true;
-            swal({text: '请输入确认密码', type: 'error', width: "320px"});
+            alert("请输入确认密码");
+            // swal({text: '请输入确认密码', type: 'error', width: "320px"});
             return false;
         }
 
@@ -42,18 +47,19 @@ $(function () {
             'email': email,
             'password': password,
             're_password': re_password,
+            'csrf_token': csrf_token
         };
 
         if (!is_error) {
             $.ajax({
-                url: '/register',
+                url: '/register/user',
                 type: 'POST',
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(data),
                 success: function (resp) {
                     if (resp.code == "0") {
-                        location.href = '/index';
+                        location.href = '/';
                     } else {
                         var errors = resp.msg;
                         // 密码错误提示

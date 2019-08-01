@@ -66,13 +66,13 @@ class RegisterForm(FlaskForm):
 
     def validate(self):
         """validate the form"""
-        inital_validation = super(RegisterForm, self).validate()
+        initial_validation = super(RegisterForm, self).validate()
 
         # 验证用户名
-        self.user = User.objects(email=self.email).first()
+        self.user = User.objects(email=self.email.data).first()
         if self.user:
             self.email.errors.append('用户名已存在')
-        if not inital_validation:
+        if not initial_validation:
             return False
 
         if len(self.errors) > 0:

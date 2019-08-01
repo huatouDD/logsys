@@ -8,6 +8,7 @@ class Config:
     SECRET_KEY = os.urandom(24)
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+
     # SECURITY_LOGIN_URL = '/login/'  # 登录端口/
     SECURITY_POST_LOGIN_VIEW = '/'  # 指定用户登录后默认跳转的页面
     # flask-security消息文本

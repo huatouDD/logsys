@@ -14,9 +14,10 @@
 {% endblock %}
 {% block content %}
 
-    <form method="post" id="csrf_toekn" name="csrf_token" value="{{ csrf_token() }}">
+    <form method="post">
+        {{ form.csrf_token }}
 
-        <label>用户名/邮箱：</label>{{ form.email(type="text", autocomplete="off", id="username") }}
+        <label>用户名/邮箱：</label>{{ form.email(type="text", autocomplete="off", id="email") }}
         <br/>
         <label>密码  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>{{ form.password(type="password", id="password") }}
         <br/>
