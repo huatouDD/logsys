@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}
+
+    REGISTER_PAGE
+
+{% endblock %}
+
+{% block head %}
+    <style type="text/css"></style>>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='public/register.js') }}"></script>
+{% endblock %}
+{% block content %}
+
+    <form method="post" id="csrf_toekn" name="csrf_token" value="{{ csrf_token() }}">
+
+        <label>用户名/邮箱：</label>{{ form.email(type="text", autocomplete="off", id="username") }}
+        <br/>
+        <label>密码  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>{{ form.password(type="password", id="password") }}
+        <br/>
+        <label>确认密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>{{ form.re_password(type="password", id="re_password") }}
+    </form>
+    <button id="sub" style="margin-right: 15px;">立即注册</button>
+    <button onclick="window.location.href='/login/'">返回登录</button>
+
+
+{% endblock %}

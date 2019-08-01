@@ -4,7 +4,7 @@ from flask_security import logout_user
 
 from logsys import response
 from logsys.extensions import csrf_protect
-from logsys.public.forms import LoginForm
+from logsys.public.forms import LoginForm, RegisterForm
 
 blueprint = Blueprint('public', __name__, static_folder='../static')
 
@@ -52,3 +52,78 @@ def login_api():
         resp_data["data"] = response.RESULT_ERROR
     finally:
         return jsonify(resp_data)
+
+
+@csrf_protect.exempt
+@blueprint.route('/register', methods=["GET", "POST"])
+def register_html():
+    """
+    注册页面
+    :return:
+    """
+    logging.info('用户注册')
+    logout_user()  # 清除用户信息
+    session.clear()  # 清除session
+    form = RegisterForm()
+    return render_template('register.html', form=form)
+
+
+@csrf_protect.exempt
+@blueprint.route('/register/user', methods=['POST'])
+def register_user():
+    """
+    用户注册
+    :return:
+    """
+    logging.info('register_user')
+    resp_data = {}
+    try:
+
+        form = RegisterForm()
+        if form.validate():
+            resp_data["code"] = response.SUCCESS
+            resp_data["msg"] = response.RESULT_SUCCESS
+            resp_data["data"] = []
+        else:
+            resp_data["code"] = response.PARAMETER_ERROR
+            resp_data["msg"] = response.RESULT_PARAMETER_ERROR
+            resp_data["data"] = {'password': form.password.errors}
+    except Exception as e:
+        logging.error(e)
+        resp_data["code"] = response.ERROR
+        resp_data["msg"] = []
+        resp_data["data"] = response.RESULT_ERROR
+    finally:
+        return jsonify(resp_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
